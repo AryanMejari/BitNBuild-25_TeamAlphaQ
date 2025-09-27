@@ -10,21 +10,12 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 function App() {
   const [url, setUrl] = useState("");
-  const [reviews, setReviews] = useState();
+  const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]) {
-        const currentUrl = tabs[0].url;
-        setUrl(currentUrl);
-        fetchReviews(currentUrl);
-      }
-    });
-    // fetchReviews(
-    //   "https://www.amazon.in/Samsung-Storage-Enhanced-Unmatched-Nightography/dp/B0FDB9H277/ref=pd_sbs_d_sccl_1_6/522-6950744-8455333?pd_rd_w=2M6TT&content-id=amzn1.sym.6d240404-f8ea-42f5-98fe-bf3c8ec77086&pf_rd_p=6d240404-f8ea-42f5-98fe-bf3c8ec77086&pf_rd_r=35X880GM57KW4292BEE4&pd_rd_wg=8xI8d&pd_rd_r=b6d3fbc7-f9d7-45f4-adf2-e4aeab216db1&pd_rd_i=B0FDB9H277&th=1"
-    // );
+    setUrl("https://www.amazon.in/Apple-iPhone-15-128-GB/dp/B0CHX2F5QT");
   }, []);
 
   const Loader = () => {
@@ -50,7 +41,7 @@ function App() {
       });
       console.log(response);
       const data = response.data;
-      setReviews(response.data);
+      setReviews(data.reviews);
       setShowResults(true);
     } catch (err) {
       console.error(err);
@@ -73,8 +64,6 @@ function App() {
     setReviews([]);
   };
 
-  console.log(reviews)
-
   if (loading) {
     return <Loader />;
   }
@@ -83,8 +72,7 @@ function App() {
     return <ResultsPage onBack={handleBackToStart} reviews={reviews} />;
   }
 
-  return <StartPage onAnalyzeClick={handleAnalyzeClick} currentUrl={url} />;
+  return <StartPage onAnalyzeClick={handleAnalyzeClick} currentUrl={"www.amazon.com"} />;
 }
 
 export default App;
-
