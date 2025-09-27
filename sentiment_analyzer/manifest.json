@@ -1,28 +1,24 @@
 {
-    "manifest_version": 3,
-    "name": "Review Radar",
-    "version": "1.0",
-    "description": "Tracks time spent on websites.",
-    "permissions": [
-      "tabs",
-      "activeTab",
-      "storage"
-    ],
-    "background": {
-      "service_worker": "background.js"
-    },
-    "action": {
-      "default_popup": "index.html",
-      "default_icon": { "192": "logo192.png" }
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ],
-    "icons": {
-        "192": "logo192.png",
-        "512": "logo512.png"
+  "manifest_version": 3,
+  "name": "SA",
+  "version": "1.0.0",
+  "description": "A React app as a Chrome extension",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
+      "16": "icon16.png",
+      "48": "icon48.png"
     }
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png"
   }
+}

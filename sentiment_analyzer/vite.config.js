@@ -1,25 +1,18 @@
-import react from '@vitejs/plugin-react'
-import { resolve } from 'path'
 import { defineConfig } from 'vite'
-import tailwindcss from '@tailwindcss/vite'
+import react from '@vitejs/plugin-react'
+import path from 'path'
 
 export default defineConfig({
-  base: './',
+  plugins: [react()],
   build: {
-    assetsInlineLimit: 0,
-    outDir: 'dist',
     rollupOptions: {
-      output: {
-        entryFileNames: '[name].js',
-        chunkFileNames: '[name].js',
-        assetFileNames: '[name].[ext]'
-      },
       input: {
-        main: resolve(__dirname, 'index.html'),
-        background: resolve(__dirname, 'src/background.js'),
-        content: resolve(__dirname, 'src/content.js')
+        main: path.resolve(__dirname, 'index.html'),
+        background: path.resolve(__dirname, 'src/background.js')
+      },
+      output: {
+        entryFileNames: '[name].js'
       }
     }
-  },
-  plugins: [react(), tailwindcss(),]
+  }
 })
