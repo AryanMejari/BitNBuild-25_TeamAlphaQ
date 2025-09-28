@@ -3,7 +3,6 @@ import "./App.css";
 import axios from "axios";
 import StartPage from "./components/StartPage.jsx";
 import ResultsPage from "./components/ResultsPage.jsx";
-import { Pie } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -15,16 +14,12 @@ function App() {
   const [showResults, setShowResults] = useState(false);
 
   useEffect(() => {
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0]) {
-        const currentUrl = tabs[0].url;
-        setUrl(currentUrl);
-        fetchReviews(currentUrl);
-      }
-    });
-    // fetchReviews(
-    //   "https://www.amazon.in/Samsung-Storage-Enhanced-Unmatched-Nightography/dp/B0FDB9H277/ref=pd_sbs_d_sccl_1_6/522-6950744-8455333?pd_rd_w=2M6TT&content-id=amzn1.sym.6d240404-f8ea-42f5-98fe-bf3c8ec77086&pf_rd_p=6d240404-f8ea-42f5-98fe-bf3c8ec77086&pf_rd_r=35X880GM57KW4292BEE4&pd_rd_wg=8xI8d&pd_rd_r=b6d3fbc7-f9d7-45f4-adf2-e4aeab216db1&pd_rd_i=B0FDB9H277&th=1"
-    // );
+    // chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    //   if (tabs[0]) {
+    //     const currentUrl = tabs[0].url;
+    //     setUrl(currentUrl);
+    //   }
+    // });
   }, []);
 
   const Loader = () => {
@@ -36,7 +31,7 @@ function App() {
           <div className="w-4 h-4 bg-amber-600 rounded-full animate-bounce delay-300"></div>
         </div>
         <h2 className="text-white font-semibold text-lg animate-pulse">
-          Loading . . .
+          Fetching Reviews . . .
         </h2>
       </div>
     );
@@ -51,20 +46,21 @@ function App() {
       console.log(response);
       const data = response.data;
       setReviews(response.data);
-      setShowResults(true);
     } catch (err) {
       console.error(err);
       console.log("Failed to fetch reviews");
-      // For demo purposes, show results even if API fails
       setShowResults(true);
     } finally {
       setLoading(false);
     }
   };
-
-  const handleAnalyzeClick = () => {
-    if (url) {
-      fetchReviews(url);
+  
+  const handleAnalyzeClick = (link=url) => {
+    if (link) {
+      setShowResults(true);
+      fetchReviews(link);
+    }else{
+      console.error("Link not found !!")
     }
   };
 

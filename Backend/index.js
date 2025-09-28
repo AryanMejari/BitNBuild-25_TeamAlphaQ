@@ -12,7 +12,7 @@ console.log(process.env.HF_API_KEY)
 
 const API_URL = process.env.H_API;
 const HF_API_KEY = process.env.HF_API_KEY;
-const apiKey = process.env.HF_API_KEY;
+const apiKey = "AIzaSyAMOmj0pqdIdXVa_2eIJYvPkf4wsNCBn84";
 const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
 const app = express();
@@ -148,7 +148,7 @@ app.post("/scrape", async (req, res) => {
     const review=await analyzeReviews(reviews);
     console.log(review)
     const gem=await analyzeReviewsGemini(reviews);
-    res.json({ review,gem });
+    res.json({ review,gem,reviews });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to scrape page" });

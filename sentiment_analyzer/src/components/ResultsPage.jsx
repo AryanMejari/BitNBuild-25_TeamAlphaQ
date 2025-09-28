@@ -73,7 +73,13 @@ const ResultsPage = ({ onBack, reviews }) => {
   };
 
   return (
-    <div className="w-[500px] min-h-[450px] flex flex-col bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 text-gray-200 font-sans relative">
+    <div className="w-[500px] min-h-[450px] flex flex-col bg-gradient-to-br  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      if (tabs[0]) {
+        const currentUrl = tabs[0].url;
+        setUrl(currentUrl);
+        fetchReviews(currentUrl);
+      }
+    }); from-gray-800 via-gray-700 to-gray-900 text-gray-200 font-sans relative">
       
       <header className="flex items-center justify-center p-4 border-b border-gray-700/50 shrink-0 relative mb-4">
         <div className="flex items-center gap-3">

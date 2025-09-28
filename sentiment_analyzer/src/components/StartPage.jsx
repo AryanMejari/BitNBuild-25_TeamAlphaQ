@@ -1,17 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/logo.png";
 
 const StartPage = ({ onAnalyzeClick, currentUrl }) => {
-  const getDomain = (url) => {
-    try {
-      return new URL(url).hostname;
-    } catch {
-      return "Unknown site";
-    }
+  const [inputUrl, setInputUrl] = useState();
+
+  const handleInput = (e) => {
+    setInputUrl(e.value);
   };
 
   return (
-    <div className="p-6 w-[500px] min-h-[450px] bg-gradient-to-br from-gray-800 via-gray-700 to-gray-900 ">
+    <div className="p-6 w-[400px] min-h-[450px] bg-gradient-to-br rounded-2xl from-gray-800 via-gray-700 to-gray-900 ">
       {/* Header with Logo and Name on same line */}
 
       <header className="flex items-center justify-center mb-8 gap-4">
@@ -29,13 +27,20 @@ const StartPage = ({ onAnalyzeClick, currentUrl }) => {
       </header>
 
       {/* Current site indicator */}
-      {currentUrl && (
+      {true && (
         <div className="mb-8 p-4 bg-gray-700/50 rounded-lg border border-gray-600 shadow-sm backdrop-blur-sm">
           <div className="flex items-center justify-center gap-2">
             <span className="text-sm text-gray-300">Website:</span>
-            <span className="text-sm font-medium text-white">
-              {getDomain(currentUrl)}
-            </span>
+            <div>
+              <input
+                type="text"
+                placeholder="Enter URL"
+                id="first_name"
+                onInput={(e) => handleInput(e.target)}
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required
+              />
+            </div>
           </div>
         </div>
       )}
@@ -53,7 +58,7 @@ const StartPage = ({ onAnalyzeClick, currentUrl }) => {
 
       {/* Analyze button */}
       <button
-        onClick={onAnalyzeClick}
+        onClick={() => onAnalyzeClick(inputUrl)}
         className="relative overflow-hidden bg-transparent border-2 border-gray-300 text-gray-200 font-bold py-8 px-24 rounded-xl text-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(229,231,235,0.40)] group backdrop-blur-sm"
       >
         <span className="relative z-10 tracking-wider">
@@ -62,6 +67,18 @@ const StartPage = ({ onAnalyzeClick, currentUrl }) => {
         <div className="absolute inset-0 bg-gray-200/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
         <div className="absolute -inset-1 bg-gray-300 rounded-xl blur opacity-0 group-hover:opacity-15 transition-opacity duration-300"></div>
+      </button>
+      <br/>
+      <button
+        onClick={() => onAnalyzeClick()}
+        className="relative overflow-hidden mt-5 bg-transparent border-2 border-blue-600 text-blue-300 font-bold py-8 px-24 rounded-xl text-xl transition-all duration-300 hover:scale-105 hover:shadow-[0_0_40px_rgba(99,102,241,0.40)] group backdrop-blur-sm"
+      >
+        <span className="relative z-10 tracking-wider">
+          Fetch and Generate Review Analysis
+        </span>
+        <div className="absolute inset-0 bg-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-400/20 to-transparent opacity-0 group-hover:opacity-100 transform -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+        <div className="absolute -inset-1 bg-blue-600 rounded-xl blur opacity-0 group-hover:opacity-15 transition-opacity duration-300"></div>
       </button>
 
       {/* Footer */}
